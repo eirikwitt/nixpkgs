@@ -28,7 +28,7 @@ fetchurl {
 ```
 
 **This will reuse the old contents**.
-Remember to invalidate the hash argument, in this case by setting the `hash` attribute to an empty string.
+Remember to invalidate the `hash` argument by setting it to an empty string.
 
 ```nix
 fetchurl {
@@ -49,7 +49,7 @@ A similar problem arises while testing changes to a fetcher's implementation. If
 
 ## `fetchurl` and `fetchzip` {#fetchurl}
 
-Two basic fetchers are `fetchurl` and `fetchzip`. Both of these have two required arguments, a URL and a hash. The hash is typically `hash`, although many more hash algorithms are supported. Nixpkgs contributors are currently recommended to use `hash`. This hash will be used by Nix to identify your source. A typical usage of `fetchurl` is provided below.
+Two basic fetchers are `fetchurl` and `fetchzip`. Both of these have two required arguments, `url` and `hash`. The hash will be used by Nix to identify your source. A typical usage of `fetchurl` is provided below.
 
 ```nix
 { stdenv, fetchurl }:
@@ -67,7 +67,7 @@ The main difference between `fetchurl` and `fetchzip` is in how they store the c
 
 ## `fetchpatch` {#fetchpatch}
 
-`fetchpatch` works very similarly to `fetchurl` with the same arguments expected. It expects patch files as a source and performs normalization on them before computing the checksum. For example, it will remove comments or other unstable parts that are sometimes added by version control systems and can change over time.
+`fetchpatch` works very similarly to [`fetchurl`](#fetchurl) with the same arguments expected. It expects patch files as a source and performs normalization on them before computing the checksum. For example, it will remove comments or other unstable parts that are sometimes added by version control systems and can change over time.
 
 - `relative`: Similar to using `git-diff`'s `--relative` flag, only keep changes inside the specified directory, making paths relative to it.
 - `stripLen`: Remove the first `stripLen` components of pathnames in the patch.
@@ -85,7 +85,7 @@ Most other fetchers return a directory rather than a single file.
 
 ## `fetchDebianPatch` {#fetchdebianpatch}
 
-A wrapper around `fetchpatch`, which takes:
+A wrapper around [`fetchpatch`](#fetchpatch), which takes:
 - `patch` and `hash`: the patch's filename,
   and its hash after normalization by `fetchpatch` ;
 - `pname`: the Debian source package's name ;
